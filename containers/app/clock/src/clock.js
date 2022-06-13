@@ -52,7 +52,7 @@ function drawClock(ctx, radius, canvas, clock) {
 	drawFace(ctx, radius, canvas);
 	const start = clock.start;
 	const slices = clock.activities;
-	drawSlices(ctx, radius, start, slices);
+	drawSlices(ctx, radius, canvas, start, slices);
     // drawTime(ctx, radius, canvas);
 	setInterval(drawTime, 1000, ctx, radius, canvas); // runs every second
     drawNumbers(ctx, radius, canvas);
@@ -84,10 +84,43 @@ function drawFace(ctx, radius, canvas) {
     ctx.fill();
 }
 
-function drawSlices() {
-	console.log('drawSlices called');	
-	// more ...
+function drawSlices(ctx, radius, canvas, start, slices) {
+	console.log('drawSlices called');
+	console.log('start: ', start);	
+	console.log('slices: ', slices);	
+    var totalValue = 0;
+    for (let i = 0; i < slices.length; i++) {
+        const slice = slices[i];
+        //console.log(slice);
+		const value = slice.minutes;
+		totalValue += value;
+    }
+	console.log('totalValue: ', totalValue);
+	var startAngle = start;
+    for (let i = 0; i < slices.length; i++) {
+		const slice = slices[i];
+		const value = slice.minutes;
+		const sliceAngle = 2 * Math.PI * value / totalValue;
+		drawSlice(ctx, radius, canvas, startAngle, sliceAngle, slice);
+		startAngle += sliceAngle;
+	}
 }
+
+function drawSlice(ctx, radius, canvas, startAngle, sliceAngle, slice) {
+	console.log('drawSlice(ctx, radius, startAngle, sliceAngle, slice) called');
+	console.log('radius: ', radius);	
+	console.log('startAngle: ', startAngle);
+	console.log('sliceAngle: ', sliceAngle);
+	console.log('slice: ', slice);
+	ctx.fillStyle = slice.color;
+	ctx.beginPath();
+	ctx.moveTo(canvas.width / 2, canvas.height / 2);
+	const endAngle = startAngle+sliceAngle;
+	console.log('endAngle: ', endAngle);
+	ctx.arc(canvas.width / 2, canvas.height / 2, radius, startAngle, endAngle);
+	ctx.closePath();
+	ctx.fill();
+}	
 
 function drawTime(ctx, radius, canvas) {
 	console.log('drawTime called');	
