@@ -28,7 +28,6 @@ figure#spinner div:nth-child(5){ transform: rotateY(-180deg); }
 figure#spinner div:nth-child(6){ transform: rotateY(-225deg); }
 figure#spinner div:nth-child(7){ transform: rotateY(-270deg); }
 figure#spinner div:nth-child(8){ transform: rotateY(-315deg); }
-
 div#carousel ~ span { 
   color: #fff; 
   margin: 5%; 
