@@ -52,7 +52,9 @@ function drawClock(ctx, radius, canvas, clock) {
 	drawFace(ctx, radius, canvas);
 	const start = clock.start;
 	const slices = clock.activities;
-	drawSlices(ctx, radius, start, slices);    	
+	drawSlices(ctx, radius, start, slices);
+    // drawTime(ctx, radius);
+    drawNumbers(ctx, radius, canvas);
 }
 
 function drawFace(ctx, radius, canvas) {
@@ -85,6 +87,26 @@ function drawSlices() {
 	console.log('drawSlices called');	
 	// more ...
 }
+
+function drawNumbers(ctx, radius, canvas) {
+  	console.log('drawNumbers called');
+    var ang;
+    var num;
+    ctx.font = radius*0.10 + "px arial"; //set font at 10% of radius
+    ctx.textBaseline = "middle"; //set text alignment to middle
+    ctx.textAlign = "center"; //set text alignment to center	
+	for(num=1; num < 25; num++){ //calculate the print position for each number: 24-hours clock
+		ang = num *Math.PI /12;
+        ctx.rotate(ang);
+        ctx.translate(0, -radius*0.80);
+        ctx.rotate(-ang);
+		ctx.fillStyle = 'grey';
+        ctx.fillText(num.toString(), canvas.width/2, canvas.height/2);
+        ctx.rotate(ang);
+        ctx.translate(0, radius*0.80);
+        ctx.rotate(-ang);
+    }
+}	
 
 function galleryspin(sign) { 
   spinner = document.querySelector("#spinner");
