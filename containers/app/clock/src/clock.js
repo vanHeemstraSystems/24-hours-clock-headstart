@@ -53,7 +53,8 @@ function drawClock(ctx, radius, canvas, clock) {
 	const start = clock.start;
 	const slices = clock.activities;
 	drawSlices(ctx, radius, start, slices);
-    // drawTime(ctx, radius);
+    // drawTime(ctx, radius, canvas);
+	setInterval(drawTime, 1000, ctx, radius, canvas); // runs every second
     drawNumbers(ctx, radius, canvas);
 }
 
@@ -86,6 +87,54 @@ function drawFace(ctx, radius, canvas) {
 function drawSlices() {
 	console.log('drawSlices called');	
 	// more ...
+}
+
+function drawTime(ctx, radius, canvas) {
+	console.log('drawTime called');	
+	var now = new Date();
+	var hour = now.getHours();
+	var minute = now.getMinutes();
+	var second = now.getSeconds();
+	//hour
+    //calculate angle of hour hand for 24 hours clock
+	hour = ((Math.PI * 2) * ((hour * 5 + (minute / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
+	hour = hour - 1;
+	console.log('hour: ', hour);
+	//make hour hand 50% of canvas's radius
+    drawHoursHand(ctx, canvas, hour, radius*0.5, radius*0.03);	
+    //second
+    //calculate angle of second hand for 24 hours clock
+    second=((Math.PI * 2) * (second / 60)) - ((Math.PI * 2) / 4);
+    //make second hand 90% of canvas's radius
+    drawSecondsHand(ctx, canvas, second, radius*0.9, radius*0.02);
+}
+
+function drawHoursHand(ctx, canvas, angle, length, width) {
+	console.log('drawHoursHand called');
+	console.log('length: ', length);
+	console.log('angle: ', angle);
+    ctx.beginPath();
+    ctx.lineWidth = width;
+	ctx.strokeStyle = "grey";
+    ctx.lineCap = "round";
+    ctx.moveTo(canvas.width/2, canvas.height/2);
+	ctx.lineTo((canvas.width/2 + Math.cos(angle) * length),      
+                    canvas.height/2 + Math.sin(angle) * length);
+    ctx.stroke();
+}
+
+function drawSecondsHand(ctx, canvas, angle, length, width) {
+	console.log('drawSecondHand called');
+	console.log('length: ', length);
+	console.log('angle: ', angle);
+    ctx.beginPath();
+    ctx.lineWidth = width;
+	ctx.strokeStyle = "grey";
+    ctx.lineCap = "round";
+    ctx.moveTo(canvas.width/2, canvas.height/2);
+	ctx.lineTo((canvas.width/2 + Math.cos(angle) * length),      
+                    canvas.height/2 + Math.sin(angle) * length);
+    ctx.stroke();
 }
 
 function drawNumbers(ctx, radius, canvas) {
