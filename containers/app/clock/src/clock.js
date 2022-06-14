@@ -162,14 +162,19 @@ function drawSlice(ctx, radius, canvas, startAngle, sliceAngle, slice) {
 }	
 
 function drawTime(ctx, radius, canvas) {
-	var now = new Date();
+	var now = new Date();	
 	var hour = now.getHours();
 	var minute = now.getMinutes();
 	var second = now.getSeconds();
 	//hour
     //calculate angle of hour hand for 24 hours clock
-	hour = ((Math.PI * 2) * ((hour * 5 + (minute / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
-	hour = hour - 1;
+	if(hour>12) {
+	  hour = ((Math.PI * 2) * ((hour * 5 + (minute / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
+	  hour = hour - 10.6; //eye-balling it :)
+	} else {
+	  hour = ((Math.PI * 2) * ((hour * 5 + (minute / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
+	  hour = hour - 1; //eye-balling it :)
+	}
 	//make hour hand 50% of canvas's radius
     drawHoursHand(ctx, canvas, hour, radius*0.5, radius*0.03);	
     //second
