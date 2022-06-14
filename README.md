@@ -8,3 +8,5 @@ Based on "Piechart" at https://code.tutsplus.com/tutorials/how-to-draw-a-pie-cha
 Based on "Need to create a loop using HTML5 canvas and JavaScript" at https://stackoverflow.com/questions/5573836/need-to-create-a-loop-using-html5-canvas-and-javascript
 
 Based on 3D Carousel Gallery" at https://codepen.io/dudleystorey/pen/DvZjLz
+
+Based on "Optimize HTML5 canvas rendering with layering" at https://developer.ibm.com/tutorials/wa-canvashtml5layering/
