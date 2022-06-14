@@ -15,11 +15,8 @@ const clocks = [
 
 var totalSpinnerItems = clocks.length;
 
-img.onload = function(){
-  console.log('inside img.onload');
-  
+img.onload = function(){ 
   document.body.addEventListener("keydown", function(event) {
-	console.log('key down');
 	// 37 = 'left arrow' key
     if (event.keyCode === 37) {
         event.preventDefault();
@@ -33,12 +30,9 @@ img.onload = function(){
   });  
   
   for (var i=0;i<totalSpinnerItems;++i){  
-	console.log('inside for loop');
 	const number = i + 1;
-	console.log('number: ', number);
     // Find the nth div, or create it
 	var div = items[i] || spinner.appendChild(document.createElement('div'));
-	console.log('div: ', div);
     // Find the nth canvas, or create it
     var canvas = div.getElementsByTagName('canvas')[0] ||
                  div.appendChild(document.createElement('canvas'));
@@ -61,7 +55,6 @@ img.onload = function(){
 img.src = "blank.svg";
 
 function drawClock(ctx, radius, canvas, clock) {
-	console.log('drawClock called');
 	// use layers to optimize rendering
 	var canvasStack = new CanvasStack(canvas.id);
 	// last layer created will be on top of all previously created layers
@@ -91,12 +84,9 @@ function drawClock(ctx, radius, canvas, clock) {
 }
 
 function drawBack(ctx, radius, canvas) {
-	console.log('drawBack called');
     var grad;	
     //draw grey circle for the back
     ctx.beginPath();
-	console.log('canvas.width: ', canvas.width);
-	console.log('canvas.height: ', canvas.height);
     ctx.arc(canvas.width/2, canvas.height/2, radius*0.95, 0, 2*Math.PI);	
     ctx.fillStyle = "Grey";
 	ctx.backColor = "Grey";
@@ -113,11 +103,8 @@ function drawBack(ctx, radius, canvas) {
 }
 
 function drawFace(ctx, radius, canvas, day) {
-	console.log('drawFace called');
     var grad;
     //leave the circle for the face empty
-	console.log('canvas.width: ', canvas.width);
-	console.log('canvas.height: ', canvas.height);
 	//arc is required
     ctx.arc(canvas.width/2, canvas.height/2, radius*0.95, 0, 2*Math.PI);	
     // create a radial gradient (inner, middle, and outer edge of clock)
@@ -147,18 +134,13 @@ function drawFace(ctx, radius, canvas, day) {
     ctx.fill();	
 }
 
-function drawSlices(ctx, radius, canvas, start, slices) {
-	console.log('drawSlices called');
-	console.log('start: ', start);	
-	console.log('slices: ', slices);	
+function drawSlices(ctx, radius, canvas, start, slices) {	
     var totalValue = 0;
     for (let i = 0; i < slices.length; i++) {
         const slice = slices[i];
-        //console.log(slice);
 		const value = slice.minutes;
 		totalValue += value;
     }
-	console.log('totalValue: ', totalValue);
 	var startAngle = start;
     for (let i = 0; i < slices.length; i++) {
 		const slice = slices[i];
@@ -170,23 +152,16 @@ function drawSlices(ctx, radius, canvas, start, slices) {
 }
 
 function drawSlice(ctx, radius, canvas, startAngle, sliceAngle, slice) {
-	console.log('drawSlice(ctx, radius, startAngle, sliceAngle, slice) called');
-	console.log('radius: ', radius);	
-	console.log('startAngle: ', startAngle);
-	console.log('sliceAngle: ', sliceAngle);
-	console.log('slice: ', slice);
 	ctx.fillStyle = slice.color;
 	ctx.beginPath();
 	ctx.moveTo(canvas.width / 2, canvas.height / 2);
 	const endAngle = startAngle+sliceAngle;
-	console.log('endAngle: ', endAngle);
 	ctx.arc(canvas.width / 2, canvas.height / 2, radius, startAngle, endAngle);
 	ctx.closePath();
 	ctx.fill();
 }	
 
 function drawTime(ctx, radius, canvas) {
-	console.log('drawTime called');	
 	var now = new Date();
 	var hour = now.getHours();
 	var minute = now.getMinutes();
@@ -195,7 +170,6 @@ function drawTime(ctx, radius, canvas) {
     //calculate angle of hour hand for 24 hours clock
 	hour = ((Math.PI * 2) * ((hour * 5 + (minute / 60) * 5) / 60)) - ((Math.PI * 2) / 4);
 	hour = hour - 1;
-	console.log('hour: ', hour);
 	//make hour hand 50% of canvas's radius
     drawHoursHand(ctx, canvas, hour, radius*0.5, radius*0.03);	
     //second
@@ -206,9 +180,6 @@ function drawTime(ctx, radius, canvas) {
 }
 
 function drawHoursHand(ctx, canvas, angle, length, width) {
-	console.log('drawHoursHand called');
-	console.log('length: ', length);
-	console.log('angle: ', angle);
     ctx.beginPath();
     ctx.lineWidth = width;
 	ctx.strokeStyle = "grey";
@@ -220,9 +191,6 @@ function drawHoursHand(ctx, canvas, angle, length, width) {
 }
 
 function drawSecondsHand(ctx, canvas, angle, length, width) {
-	console.log('drawSecondHand called');
-	console.log('length: ', length);
-	console.log('angle: ', angle);
     ctx.beginPath();
     ctx.lineWidth = width;
 	ctx.strokeStyle = "grey";
@@ -236,7 +204,6 @@ function drawSecondsHand(ctx, canvas, angle, length, width) {
 }
 
 function drawNumbers(ctx, radius, canvas) {
-  	console.log('drawNumbers called');
     var ang;
     var num;
     ctx.font = radius*0.10 + "px arial"; //set font at 10% of radius
