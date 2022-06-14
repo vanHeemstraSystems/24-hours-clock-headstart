@@ -17,6 +17,21 @@ var totalSpinnerItems = clocks.length;
 
 img.onload = function(){
   console.log('inside img.onload');
+  
+  document.body.addEventListener("keydown", function(event) {
+	console.log('key down');
+	// 37 = 'left arrow' key
+    if (event.keyCode === 37) {
+        event.preventDefault();
+		galleryspin('-');
+    }	
+	// 39 = 'right arrow' key
+    if (event.keyCode === 39) {
+        event.preventDefault();
+		galleryspin('');
+    }	
+  });  
+  
   for (var i=0;i<totalSpinnerItems;++i){  
 	console.log('inside for loop');
 	const number = i + 1;
@@ -69,9 +84,10 @@ function drawClock(ctx, radius, canvas, clock) {
 	var ctxNumbers = document.getElementById(layerNumbers).getContext('2d');
 	drawNumbers(ctxNumbers, radius, canvas);
 	// Face layer
+	const day = clock.day;
 	var layerFace = canvasStack.createLayer();
 	var ctxFace = document.getElementById(layerFace).getContext('2d');
-	drawFace(ctxFace, radius, canvas);
+	drawFace(ctxFace, radius, canvas, day);
 }
 
 function drawBack(ctx, radius, canvas) {
@@ -96,7 +112,7 @@ function drawBack(ctx, radius, canvas) {
     ctx.stroke();
 }
 
-function drawFace(ctx, radius, canvas) {
+function drawFace(ctx, radius, canvas, day) {
 	console.log('drawFace called');
     var grad;
     //leave the circle for the face empty
@@ -118,6 +134,17 @@ function drawFace(ctx, radius, canvas) {
     ctx.arc(canvas.width/2, canvas.height/2, radius*0.1, 0, 2*Math.PI);
     ctx.fillStyle = '#333';
     ctx.fill();
+	//draw the text on the center of the clock
+    ctx.beginPath();
+	ctx.font = "10px arial";
+    var textString = day,
+    textWidth = (ctx.measureText(textString).width)+4; //margin of 2	
+	textHeight = (ctx.measureText(textString).height)+4; //margin of 2
+	ctx.fillStyle = '#333'; //for background
+	ctx.fillRect((canvas.width/2)-(textWidth/2),(canvas.height/2)-6, textWidth, parseInt(10, 10)+2);
+	ctx.fillStyle = 'White'; //for text
+	ctx.fillText(textString, (canvas.width/2)-(textWidth/2)+2, (canvas.height/2)+2);
+    ctx.fill();	
 }
 
 function drawSlices(ctx, radius, canvas, start, slices) {
