@@ -4,13 +4,13 @@ var angle = 0;
 var img = new Image;
 
 const clocks = [
-    {"day": "Sunday", "start": -2.1,"activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "olive"}]},
-    {"day": "Monday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "purple"}]},
-    {"day": "Tuesday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "blue"}]},
-    {"day": "Wednesday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "red"}]},
-    {"day": "Thursday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "pink"}]},
-    {"day": "Friday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 120, "color": "yellow"}]},
-    {"day": "Saturday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 83, "color": "darkblue"}, {"name": "bbb", "minutes": 140, "color": "green"}]}
+    {"day": "Sunday", "start": -2.1,"activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Monday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Tuesday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Wednesday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Thursday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Friday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]},
+    {"day": "Saturday", "start": -2.1, "activities": [{"name": "Sleep", "minutes": 540, "color": "darkblue"}, {"name": "Shower", "minutes": 15, "color": "cyan"}, {"name": "Breakfast", "minutes": 15, "color": "yellow"}, {"name": "Dress", "minutes": 15, "color": "olive"}, {"name": "Face Treatment", "minutes": 15, "color": "yellow"}]}
   ];
 
 var totalSpinnerItems = clocks.length;
@@ -144,7 +144,7 @@ function drawSlices(ctx, radius, canvas, start, slices) {
 	var startAngle = start;
     for (let i = 0; i < slices.length; i++) {
 		const slice = slices[i];
-		const value = slice.minutes;
+		const value = (225/540) * slice.minutes; //eye-balling it :)
 		const sliceAngle = 2 * Math.PI * value / totalValue;
 		drawSlice(ctx, radius, canvas, startAngle, sliceAngle, slice);
 		startAngle += sliceAngle;
