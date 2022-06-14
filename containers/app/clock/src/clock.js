@@ -33,12 +33,10 @@ img.onload = function(){
 	canvas.id = "spinnerItem-"+ number;
 	canvas.className = "spinnerItem";
 	var ctx = canvas.getContext('2d');
-	
 	// Added
 	var radius = canvas.height / 2;
 	const clock = clocks[i]
 	drawClock(ctx, radius, canvas, clock);
-	
     // Use your actual calculations for the SVG size/position here
     ctx.drawImage(img, 0, 0);
   }
@@ -49,25 +47,63 @@ img.src = "blank.svg";
 
 function drawClock(ctx, radius, canvas, clock) {
 	console.log('drawClock called');
-	drawFace(ctx, radius, canvas);
+	// use layers to optimize rendering
+	var canvasStack = new CanvasStack(canvas.id);
+	// last layer created will be on top of all previously created layers
+	// Back layer
+	var layerBack = canvasStack.createLayer();
+	var ctxBack = document.getElementById(layerBack).getContext('2d');
+	drawBack(ctxBack, radius, canvas);
+	// Slices
 	const start = clock.start;
 	const slices = clock.activities;
-	drawSlices(ctx, radius, canvas, start, slices);
-    // drawTime(ctx, radius, canvas);
-	setInterval(drawTime, 1000, ctx, radius, canvas); // runs every second
-    drawNumbers(ctx, radius, canvas);
+	var layerSlices = canvasStack.createLayer();
+	var ctxSlices = document.getElementById(layerSlices).getContext('2d');
+	drawSlices(ctxSlices, radius, canvas, start, slices);
+	// Time
+	var layerTime = canvasStack.createLayer();
+	var ctxTime = document.getElementById(layerTime).getContext('2d');
+	setInterval(drawTime, 1000, ctxTime, radius, canvas); // runs every second
+	// Numbers
+	var layerNumbers = canvasStack.createLayer();
+	var ctxNumbers = document.getElementById(layerNumbers).getContext('2d');
+	drawNumbers(ctxNumbers, radius, canvas);
+	// Face layer
+	var layerFace = canvasStack.createLayer();
+	var ctxFace = document.getElementById(layerFace).getContext('2d');
+	drawFace(ctxFace, radius, canvas);
 }
 
-function drawFace(ctx, radius, canvas) {
-	console.log('drawFace called');
+function drawBack(ctx, radius, canvas) {
+	console.log('drawBack called');
     var grad;	
-    //draw white circle for the face
+    //draw grey circle for the back
     ctx.beginPath();
 	console.log('canvas.width: ', canvas.width);
 	console.log('canvas.height: ', canvas.height);
     ctx.arc(canvas.width/2, canvas.height/2, radius*0.95, 0, 2*Math.PI);	
-    ctx.fillStyle = "White";
+    ctx.fillStyle = "Grey";
+	ctx.backColor = "Grey";
     ctx.fill();
+    // create a radial gradient (inner, middle, and outer edge of clock)
+    grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, radius*0.90, canvas.width/2, canvas.height/2, radius*1.0);
+    grad.addColorStop(0, '#333');
+    grad.addColorStop(0.5, 'white');
+    grad.addColorStop(1, '#333');
+    //define gradient as stroke style
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = radius*0.1;
+    ctx.stroke();
+}
+
+function drawFace(ctx, radius, canvas) {
+	console.log('drawFace called');
+    var grad;
+    //leave the circle for the face empty
+	console.log('canvas.width: ', canvas.width);
+	console.log('canvas.height: ', canvas.height);
+	//arc is required
+    ctx.arc(canvas.width/2, canvas.height/2, radius*0.95, 0, 2*Math.PI);	
     // create a radial gradient (inner, middle, and outer edge of clock)
     grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, radius*0.90, canvas.width/2, canvas.height/2, radius*1.0);
     grad.addColorStop(0, '#333');
@@ -168,6 +204,8 @@ function drawSecondsHand(ctx, canvas, angle, length, width) {
 	ctx.lineTo((canvas.width/2 + Math.cos(angle) * length),      
                     canvas.height/2 + Math.sin(angle) * length);
     ctx.stroke();
+	//after less than a second, clear this layer
+	setTimeout(function() { ctx.clearRect(0,0,canvas.width,canvas.height); }, 900);
 }
 
 function drawNumbers(ctx, radius, canvas) {
