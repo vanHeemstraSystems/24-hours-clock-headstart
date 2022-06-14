@@ -12,3 +12,5 @@ Based on 3D Carousel Gallery" at https://codepen.io/dudleystorey/pen/DvZjLz
 Based on "Optimize HTML5 canvas rendering with layering" at https://developer.ibm.com/tutorials/wa-canvashtml5layering/
 
 Based on "HOW TO CREATE MULTIPLE CANVAS LAYERS JAVASCRIPT" at https://www.youtube.com/watch?v=Q501OETXFBU
+
+Based on "Canvas Layers" at https://www.arc.id.au/CanvasLayers.html
