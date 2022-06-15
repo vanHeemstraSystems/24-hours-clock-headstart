@@ -18,3 +18,5 @@ Based on "Canvas Layers" at https://www.arc.id.au/CanvasLayers.html
 ![Screenshot 2022-06-14 154830](https://user-images.githubusercontent.com/1499433/173593460-62d2b075-8381-43a3-ad63-af28e8785f5d.png)
 
 Preview
+
+**TIP**: Try to implement the javascript code with [ConcreteJS](http://www.concretejs.com/), an optimized HTML Canvas Framework.
