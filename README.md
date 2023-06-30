@@ -15,6 +15,10 @@ Based on "HOW TO CREATE MULTIPLE CANVAS LAYERS JAVASCRIPT" at https://www.youtub
 
 Based on "Canvas Layers" at https://www.arc.id.au/CanvasLayers.html
 
+Based on "LED Clock" at https://github.com/vanHeemstraSystems/led-clock
+
+Based on "TimeBuzzer" at https://github.com/vanHeemstraSystems/timebuzzer
+
 ![Screenshot 2022-06-14 154830](https://user-images.githubusercontent.com/1499433/173593460-62d2b075-8381-43a3-ad63-af28e8785f5d.png)
 
 Preview
