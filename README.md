@@ -19,6 +19,8 @@ Based on "LED Clock" at https://github.com/vanHeemstraSystems/led-clock
 
 Based on "TimeBuzzer" at https://github.com/vanHeemstraSystems/timebuzzer
 
+Related to "Industriousness" at https://github.com/vanHeemstraSystems/industriousness/ 
+
 ![Screenshot 2022-06-14 154830](https://user-images.githubusercontent.com/1499433/173593460-62d2b075-8381-43a3-ad63-af28e8785f5d.png)
 
 Preview
